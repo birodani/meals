@@ -34,7 +34,11 @@ class MealDetailsScreen extends ConsumerWidget {
                 bool isAdded = ref.read(favoriteMealProvider.notifier).toggleMealFavoriteStatus(meal);
                 showInfoMessage(isAdded ? 'Meal is added to favorites!' : 'Meal is removed from favorites!');
               },
-              icon: Icon( isFavorite ? Icons.star : Icons.star_border))
+              icon: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 50),
+                transitionBuilder: (child, animation) => RotationTransition(turns: animation, child: child,),
+                child: Icon( isFavorite ? Icons.star : Icons.star_border, key: ValueKey(isFavorite),)),
+             ),    
         ]),
         body: SingleChildScrollView(
           child: Column(
